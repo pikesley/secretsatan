@@ -67,11 +67,11 @@ optparse = OptionParser.new do |opts|
 
 # we only have one option: select this to see full output (i.e. who's got who)
   options[:non_player] = false
-  opts.on( '-n', '--non-player', "will tell you who's got who" ) do
+  opts.on('-n', '--non-player', "will tell you who's got who") do
     options[:non_player] = true
   end
 
-  opts.on( '-h', '--help', 'Display this screen' ) do
+  opts.on('-h', '--help', 'Display this screen') do
     puts opts
     exit
   end
@@ -101,7 +101,7 @@ participants.length.times do |index|
 # get the participant
   p = participants[index]
 
-# configure the offset (so participant #1 will get #2 as their SS)
+# configure the offset (so e.g. participant #1 will get #2 as their SS)
   i = index + 1
 
 # this wraps us back around when we're about to fall off the end of the array
