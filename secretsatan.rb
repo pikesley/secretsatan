@@ -3,10 +3,10 @@
 # configurables
 players = {
   'bee' => 'bee@some.domain',
-  'cee' => 'foo@some.domain',
-  'dee' => 'bar@some.domain',
-  'eee' => 'why@some.domain',
-  'fff' => 'zed@some.domain',
+  'cee' => 'cee@some.domain',
+  'dee' => 'dee@some.domain',
+  'eee' => 'eee@some.domain',
+  'eff' => 'eff@some.domain',
   'gee' => 'gee@some.domain'
 }
 
