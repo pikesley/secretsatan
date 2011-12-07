@@ -10,9 +10,7 @@ There are some configurables at the top of the script. You definitely need to su
 
 Needs the pony gem (and presumes you can send mail from whatever box you're running it on).
 
-Then try
-
-  ./secretsatan.rb -h
+Then try `./secretsatan.rb -h`
 
 License
 -------
