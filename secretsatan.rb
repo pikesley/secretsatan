@@ -2,12 +2,12 @@
 
 # configurables
 players = {
-  'bee' => 'bee@some.domain',
-  'cee' => 'cee@some.domain',
-  'dee' => 'dee@some.domain',
-  'eee' => 'eee@some.domain',
-  'eff' => 'eff@some.domain',
-  'gee' => 'gee@some.domain'
+  'Bee' => 'bee@some.domain',
+  'Cee' => 'cee@some.domain',
+  'Dee' => 'dee@some.domain',
+  'Eee' => 'eee@some.domain',
+  'Eff' => 'eff@some.domain',
+  'Gee' => 'gee@some.domain'
 }
 
 $sender = 'secretsanta@your.domain'
@@ -42,22 +42,25 @@ class Participant
   end
 
 # send this person the SS email
-# non_player = true means that the recipient will be printed along with the
-# name of each player (we probably don't want this)
-  def send_mail non_player = false
-    if non_player then
+  def send_mail options
+
+# usually we *don't* want to know who's got who, but maybe we do
+    if options[:non_player] or options[:dry_run] then
       s = " to tell them to their recipient is #{@recipient.name}"
     end
+
     puts "Mailing #{@name}%s" % [s]
 
 # send a mail. pony is ace
-    Pony.mail(
-      :to => @email,
-      :from => $sender,
-      :subject => 'Secret Santa',
-      :body => $message % [@name, @recipient.name],
-      :charset => 'utf-8'
-    )
+    if not options[:dry_run] then
+      Pony.mail(
+        :to => @email,
+        :from => $sender,
+        :subject => 'Secret Santa',
+        :body => $message % [@name, @recipient.name],
+        :charset => 'utf-8'
+      )
+    end
   end
 end
 
@@ -65,10 +68,16 @@ end
 options = {}
 optparse = OptionParser.new do |opts|
 
-# we only have one option: select this to see full output (i.e. who's got who)
+# select this to see full output (i.e. who's got who)
   options[:non_player] = false
   opts.on('-n', '--non-player', "will tell you who's got who") do
     options[:non_player] = true
+  end
+
+# just a rehearsal
+  options[:dry_run] = false
+  opts.on('-t', '--dry-run', "don't actually send any mails") do
+    options[:dry_run] = true
   end
 
   opts.on('-h', '--help', 'Display this screen') do
@@ -117,6 +126,9 @@ end
 participants.shuffle!
 
 # and send the mails
+if options[:dry_run] then
+  puts "DRY RUN! NOT REALLY SENDING ANYTHING!"
+end
 participants.each do |p|
-  p.send_mail options[:non_player]
+  p.send_mail options
 end
