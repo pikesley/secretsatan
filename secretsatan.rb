@@ -80,7 +80,7 @@ optparse = OptionParser.new do |opts|
     options[:dry_run] = true
   end
 
-  opts.on('-h', '--help', 'Display this screen') do
+  opts.on('-h', '--help', "display this screen") do
     puts opts
     exit
   end
